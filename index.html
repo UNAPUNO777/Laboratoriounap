@@ -1,12 +1,146 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Laboratorio-Unap</title>
-    <script>
-        window.location.replace("https://script.google.com/macros/s/AKfycbxwiiPHA9XgcmONKwZCZo5MbA85XRQanbzFKHtREH0OKFqARoWtyFctmMJq2kkEW6sX/exec");
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio de Física - UNAP</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a1f44;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+            flex-direction: column;
+        }
+        .container {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            max-width: 400px;
+            width: 90%;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            background: white;
+            padding: 10px;
+        }
+        h1 {
+            font-size: 24px;
+            margin: 10px 0;
+            color: #fff;
+        }
+        p {
+            font-size: 16px;
+            opacity: 0.8;
+            margin: 10px 0 30px;
+        }
+        .btn {
+            display: inline-block;
+            background: #4fc3f7;
+            color: #0a1f44;
+            padding: 14px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: background 0.3s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(79, 195, 247, 0.4);
+        }
+        .btn:hover {
+            background: #29b6f6;
+            transform: scale(1.05);
+        }
+        .loader {
+            border: 4px solid rgba(255,255,255,0.2);
+            border-top: 4px solid #4fc3f7;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 0.8s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .hidden {
+            display: none;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            opacity: 0.5;
+        }
+    </style>
 </head>
 <body>
-    <p>Redirigiendo a la aplicación...</p>
+    <div class="container">
+        <!-- Logo corregido con URL directa de Google Drive -->
+        <img src="https://lh3.googleusercontent.com/d/1ZToxixvUAgi3xY6lfFN7TmnzsB6mtqJK" alt="Laboratorio de Física" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect fill=%22%234fc3f7%22 width=%22100%22 height=%22100%22/%3E%3Ctext x=%2250%22 y=%2255%22 font-size=%2230%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Arial%22%3ELAB%3C/text%3E%3C/svg%3E'" />
+        
+        <h1>LABORATORIO DE FÍSICA</h1>
+        <p>Universidad Nacional del Altiplano</p>
+        
+        <!-- Loader -->
+        <div id="loader" class="loader"></div>
+        <p id="mensaje" style="font-size:14px; opacity:0.7;">Redirigiendo a la aplicación...</p>
+        
+        <!-- Botón por si la redirección falla -->
+        <button id="btnIr" class="btn hidden">Ir a la aplicación</button>
+        
+        <div class="footer">© 2026 - Todos los derechos reservados</div>
+    </div>
+
+    <script>
+        (function() {
+            // URL de tu aplicación de Apps Script (cámbiala si es necesario)
+            var APP_URL = "https://script.google.com/macros/s/AKfycbxwiiPHA9XgcmONKwZCZo5MbA85XRQanbzFKHtREH0OKFqARoWtyFctmMJq2kkEW6sX/exec";
+            
+            var loader = document.getElementById('loader');
+            var mensaje = document.getElementById('mensaje');
+            var btnIr = document.getElementById('btnIr');
+            
+            // Intento de redirección automática
+            function redirigir() {
+                window.location.replace(APP_URL);
+            }
+            
+            // Mostrar botón si después de 3 segundos no se redirige (por si el navegador bloquea)
+            var timeout = setTimeout(function() {
+                // Si aún estamos en esta página, mostramos el botón
+                loader.classList.add('hidden');
+                mensaje.textContent = 'Si no eres redirigido automáticamente, haz clic en el botón.';
+                btnIr.classList.remove('hidden');
+            }, 3000);
+            
+            // Redirigir inmediatamente
+            redirigir();
+            
+            // Evento del botón
+            btnIr.addEventListener('click', function() {
+                window.location.href = APP_URL;
+            });
+            
+            // Si la página se oculta (porque la redirección funcionó), limpiar timeout
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    clearTimeout(timeout);
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
